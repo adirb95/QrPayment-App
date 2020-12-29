@@ -1,5 +1,6 @@
 package com.example.qrpayment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ public class LoggedInActivity extends AppCompatActivity {
     public Button btn_QR_CODE_SCAN;
 
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         loggedInActivityViewModel = new LoggedInActivityViewModel();
