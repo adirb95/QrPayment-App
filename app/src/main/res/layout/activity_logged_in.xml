@@ -33,7 +33,7 @@
         android:id="@+id/textView_left_corner_msg"
         android:layout_width="378dp"
         android:layout_height="135dp"
-        android:text="helo"
+        android:text=""
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

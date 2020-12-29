@@ -82,10 +82,10 @@ public class CameraViewActivity extends AppCompatActivity {
                     vibrator.vibrate(250);
                     String qr_content = qrCode.toString();
                     System.out.println(qr_content);
-                    Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), AfterQRscanActivity.class);
                     intent.putExtra("QRDetails", qr_content);
                     startActivity(intent);
-                    setContentView(R.layout.activity_payment);
+                    setContentView(R.layout.activity_after_q_rscan);
                 }
             }
         });

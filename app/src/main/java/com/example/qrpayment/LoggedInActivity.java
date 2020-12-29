@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class LoggedInActivity extends AppCompatActivity {
+    JsonIO jsonIO;
     LoggedInActivityViewModel loggedInActivityViewModel;
     User object;
     public Button btn_QR_CODE_SCAN;
@@ -28,12 +29,12 @@ public class LoggedInActivity extends AppCompatActivity {
         btn_QR_CODE_SCAN=findViewById(R.id.btn_QR_Scan);
         String username = getIntent().getStringExtra("name");
         try {
-            object=  (User) loggedInActivityViewModel.JsonString_to_Object(username);
+            object=  (User) JsonIO.JsonString_to_Object(username,User.class);
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        left_corner_msg.setText("welcome " +object.getFirstName()+" "+ object.getLastName());
+        left_corner_msg.setText("Welcome " +object.getFirstName()+" "+ object.getLastName());
         btn_QR_CODE_SCAN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

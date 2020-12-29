@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QRPayment">
-        <activity android:name=".HistoryActivity"></activity>
+        <activity android:name=".AfterQRscanActivity"></activity>
+        <activity android:name=".HistoryActivity" />
         <activity android:name=".PaymentActivity" />
         <activity
             android:name=".CameraViewActivity"
