@@ -1,7 +1,6 @@
 package com.example.qrpayment;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,20 +10,17 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
-import android.os.VibrationAttributes;
 import android.os.Vibrator;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -40,7 +36,7 @@ public class CameraViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera_view);
         surfaceView = (SurfaceView) findViewById(R.id.Camera_preview);
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build();
-        cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(649, 415).build();
+        cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(1920, 1080).build();
 
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
 
@@ -76,17 +72,17 @@ public class CameraViewActivity extends AppCompatActivity {
 
             @Override
             public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
-                SparseArray<Barcode> qrCode = detections.getDetectedItems();
-                if (qrCode.size() != 0) {
+                SparseArray<Barcode> qr_content =  detections.getDetectedItems();
+                if (qr_content.size() != 0) {
                     Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(250);
-                    String qr_content = qrCode.toString();
-                    System.out.println(qr_content);
+
                     Intent intent = new Intent(getApplicationContext(), AfterQRscanActivity.class);
-                    intent.putExtra("QRDetails", qr_content);
+                    intent.putExtra("QRDetails",qr_content.valueAt(0).displayValue);
                     startActivity(intent);
-                    setContentView(R.layout.activity_after_q_rscan);
+                    setContentView(R.layout.activity_after_qr_scan);
                 }
+                Toast.makeText(CameraViewActivity.this, "error capturing qr", Toast.LENGTH_SHORT).show();;
             }
         });
 

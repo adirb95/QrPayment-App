@@ -55,10 +55,12 @@ public class MainActivity extends AppCompatActivity {
                     case 1: {
                         try {
                            String userobject =mainActivityViewModel.getUserByName(input_email, input_password);    //success
-                            Intent i = new Intent(getApplicationContext(),LoggedInActivity.class);
-                            i.putExtra("name", userobject);
-                            startActivity(i);
-                            setContentView(R.layout.activity_logged_in);
+                          if(!userobject.isEmpty()) {
+                              Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
+                              i.putExtra("name", userobject);
+                              startActivity(i);
+                              setContentView(R.layout.activity_logged_in);
+                          }
                             break;
 
                         } catch (JSONException e) {
