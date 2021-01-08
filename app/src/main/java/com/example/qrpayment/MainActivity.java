@@ -7,15 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.squareup.okhttp.Callback;
-
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import org.json.JSONException;
 
@@ -55,12 +48,14 @@ public class MainActivity extends AppCompatActivity {
                     case 1: {
                         try {
                            String userobject =mainActivityViewModel.getUserByName(input_email, input_password);    //success
-                          if(!userobject.isEmpty()) {
+                            if(!userobject.isEmpty()) {
                               Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
                               i.putExtra("name", userobject);
                               startActivity(i);
                               setContentView(R.layout.activity_logged_in);
+
                           }
+                            editText_warnings_field.setText("Email or password not valid!");
                             break;
 
                         } catch (JSONException e) {
@@ -77,7 +72,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
 }

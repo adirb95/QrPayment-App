@@ -46,7 +46,7 @@ public class MainActivityViewModel {
     String getUserByName(String email, String password) throws JSONException, IOException {
         //String url = "http://10.0.2.2:8080/Login";
         //String url = "http://localhost:8080/Login";
-        String url = "http://192.168.1.100:8080/Login";
+        String url = "http://192.168.1.223:8080/Login";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("email", email);
@@ -63,10 +63,8 @@ public class MainActivityViewModel {
                 .post(body)
                 .build();
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         Response response = client.newCall(request).execute();
         Log.d("<<Error", "post request initiated");
         return response.body().string();

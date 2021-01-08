@@ -14,7 +14,6 @@ public class AfterQRscanActivity extends AppCompatActivity {
     String JsonString;
     Payment newPayment;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

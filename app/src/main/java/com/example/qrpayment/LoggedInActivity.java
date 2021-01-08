@@ -17,6 +17,7 @@ public class LoggedInActivity extends AppCompatActivity {
     LoggedInActivityViewModel loggedInActivityViewModel;
     User object;
     public Button btn_QR_CODE_SCAN;
+    public Button btn_history;
 
 
     @SuppressLint("SetTextI18n")
@@ -27,6 +28,7 @@ public class LoggedInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logged_in);
         TextView left_corner_msg=findViewById(R.id.textView_left_corner_msg);
         btn_QR_CODE_SCAN=findViewById(R.id.btn_QR_Scan);
+        btn_history = findViewById(R.id.btn_history);
         String username = getIntent().getStringExtra("name");
         try {
             object=  (User) JsonIO.JsonString_to_Object(username,User.class);
@@ -41,6 +43,14 @@ public class LoggedInActivity extends AppCompatActivity {
                 Intent intent=new Intent(getApplicationContext(),CameraViewActivity.class);
                 startActivity(intent);
                 setContentView(R.layout.activity_camera_view);
+            }
+        });
+        btn_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),NewHistory.class);
+                startActivity(intent);
+                setContentView(R.layout.activity_new_history);
             }
         });
     }
