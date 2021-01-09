@@ -58,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
                             editText_warnings_field.setText("Email or password not valid!");
                             break;
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
+                        } catch (JSONException | IOException e) {
                             e.printStackTrace();
                         }
                     }

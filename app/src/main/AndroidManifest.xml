@@ -15,8 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QRPayment">
 
-        <activity android:name=".AfterQRscanActivity"></activity>
-        <activity android:name=".NewHistory"></activity>
+        <activity android:name=".AfterQRscanActivity" />
+        <activity android:name=".NewHistory" />
         <activity android:name=".HistoryActivity" />
         <activity
             android:name=".CameraViewActivity"
