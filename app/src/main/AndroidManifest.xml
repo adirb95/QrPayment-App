@@ -16,7 +16,6 @@
         android:theme="@style/Theme.QRPayment">
 
         <activity android:name=".AfterQRscanActivity" />
-        <activity android:name=".NewHistory" />
         <activity android:name=".HistoryActivity" />
         <activity
             android:name=".CameraViewActivity"
@@ -26,13 +25,17 @@
             android:name=".LoggedInActivity"
             android:label="@string/title_activity_logged_in"
             android:theme="@style/Theme.QRPayment.NoActionBar" />
+
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
-        </activity>
+
+        </activity >
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

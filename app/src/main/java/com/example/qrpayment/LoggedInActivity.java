@@ -13,11 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class LoggedInActivity extends AppCompatActivity {
-    JsonIO jsonIO;
+
     LoggedInActivityViewModel loggedInActivityViewModel;
     User object;
     public Button btn_QR_CODE_SCAN;
     public Button btn_history;
+
 
 
     @SuppressLint("SetTextI18n")
@@ -48,9 +49,14 @@ public class LoggedInActivity extends AppCompatActivity {
         btn_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),NewHistory.class);
+                Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                try {
+                    intent.putExtra("userobject",JsonIO.Object_to_JsonString(object));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
-                setContentView(R.layout.activity_new_history);
+                setContentView(R.layout.activity_history);
             }
         });
     }

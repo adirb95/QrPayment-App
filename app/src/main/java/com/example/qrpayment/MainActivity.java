@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,26 +18,28 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    MainActivityViewModel mainActivityViewModel = new MainActivityViewModel();
+    MainActivityViewModel mainActivityViewModel;
     private String input_email, input_password;
-
+    ImageButton login_button;
+    EditText editText_email_field;
+    EditText editText_password_field;
+    TextView editText_warnings_field;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button login_button = findViewById(R.id.login_btn);
-        EditText editText_email_field = findViewById(R.id.email_field);
-        EditText editText_password_field = findViewById(R.id.password_field);
-        TextView editText_warnings_field = findViewById(R.id.textView_warnings);
-        MainActivityViewModel mainActivityViewModel = new MainActivityViewModel();
+         login_button = findViewById(R.id.imageButton);
+        editText_email_field = findViewById(R.id.email_field);
+         editText_password_field = findViewById(R.id.password_field);
+         editText_warnings_field = findViewById(R.id.textView_warnings);
+
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                MainActivityViewModel mainActivityViewModel = new MainActivityViewModel();
                 input_email = editText_email_field.getText().toString();
                 input_password = editText_password_field.getText().toString();
-                /*mainActivityViewModel.validateInput(input_email,input_password)*/
-                /*String user = */
                 if (input_email.isEmpty()) {
                     Log.d("<<Error", "empty email");
                 }
