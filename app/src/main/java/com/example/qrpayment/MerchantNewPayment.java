@@ -9,12 +9,17 @@ public class MerchantNewPayment {
     private int branchNumber;
     private int bankID;
 
-    public int getTransactionID() {
-        return transactionID;
-    }
-
-    public void setTransactionID(int transactionID) {
-        this.transactionID = transactionID;
+    @Override
+    public String toString() {
+        return "MerchantNewPayment{" +
+                "transactionID=" + transactionID +
+                ", merchantName='" + merchantName + '\'' +
+                ", transactionAmount=" + transactionAmount +
+                ", transactionCurrency='" + transactionCurrency + '\'' +
+                ", accountNumber=" + accountNumber +
+                ", branchNumber=" + branchNumber +
+                ", bankID=" + bankID +
+                '}';
     }
 
     public String getMerchantName() {
@@ -63,5 +68,13 @@ public class MerchantNewPayment {
 
     public void setBankID(int bankID) {
         this.bankID = bankID;
+    }
+
+    public int getTransactionID() {
+        return transactionID;
+    }
+
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
     }
 }

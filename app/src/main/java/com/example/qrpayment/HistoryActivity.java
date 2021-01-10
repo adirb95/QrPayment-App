@@ -1,3 +1,4 @@
+
 package com.example.qrpayment;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,26 +25,29 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+
 public class HistoryActivity extends AppCompatActivity {
 
+
     TableLayout tableLayout;
+    HistoryActivityViewModel historyActivityViewModel=new HistoryActivityViewModel();
+    String userJsonString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Lifecycle: ", "NewHistory onCreate");
         super.onCreate(savedInstanceState);
-    }
-
-    public JSONArray getPaymentsList() throws IOException, JSONException {
-        String url = "http://192.168.1.223:8080/history";
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Response response = client.newCall(request).execute();
-        String jsonList = response.body().string();
-        JSONArray jsonarray = new JSONArray(jsonList);
-        return jsonarray;
+        tableLayout = new TableLayout(this);
+        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        tableLayout.setLayoutParams(lp);
+        userJsonString = getIntent().getStringExtra("userobject");
+        try {
+            JSONArray paymentsArray = historyActivityViewModel.getPaymentsList(userJsonString);
+            createTable(paymentsArray);
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        setContentView(tableLayout);
     }
 
     @SuppressLint({"ResourceAsColor", "SetTextI18n"})

@@ -15,7 +15,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 
 public class LoggedInActivity extends AppCompatActivity {
-    User userObject;
+
+    User object;
     public Button btn_QR_CODE_SCAN;
     public Button btn_history;
     TextView left_corner_msg;
@@ -37,12 +38,12 @@ public class LoggedInActivity extends AppCompatActivity {
         btn_history = findViewById(R.id.btn_history);
         String username = getIntent().getStringExtra("name");
         try {
-            userObject=  (User) JsonIO.JsonString_to_Object(username,User.class);
+            object=  (User) JsonIO.JsonString_to_Object(username,User.class);
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        left_corner_msg.setText("Welcome " +userObject.getFirstName()+" "+ userObject.getLastName());
+        left_corner_msg.setText("Welcome " +object.getFirstName()+" "+ object.getLastName());
     }
 
     @Override
@@ -61,6 +62,11 @@ public class LoggedInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
+                try {
+                    intent.putExtra("userobject",JsonIO.Object_to_JsonString(object));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
                 startActivity(intent);
                 setContentView(R.layout.activity_history);
             }
