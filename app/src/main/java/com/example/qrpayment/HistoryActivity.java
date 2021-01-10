@@ -7,17 +7,12 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,24 +25,13 @@ public class HistoryActivity extends AppCompatActivity {
 
 
     TableLayout tableLayout;
-    HistoryActivityViewModel historyActivityViewModel=new HistoryActivityViewModel();
+    HistoryActivityViewModel historyActivityViewModel = new HistoryActivityViewModel();
     String userJsonString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Lifecycle: ", "NewHistory onCreate");
         super.onCreate(savedInstanceState);
-        tableLayout = new TableLayout(this);
-        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        tableLayout.setLayoutParams(lp);
-        userJsonString = getIntent().getStringExtra("userobject");
-        try {
-            JSONArray paymentsArray = historyActivityViewModel.getPaymentsList(userJsonString);
-            createTable(paymentsArray);
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        setContentView(tableLayout);
     }
 
     @SuppressLint({"ResourceAsColor", "SetTextI18n"})
@@ -90,11 +74,11 @@ public class HistoryActivity extends AppCompatActivity {
         tv5.setTextColor(Color.BLUE);
         header.addView(tv5);
         tableLayout.addView(header);
-        for (int i = 1; i < (payments.length()+1); i++) {
-            JSONObject jsonObject = payments.getJSONObject(i-1);
+        for (int i = 1; i < (payments.length() + 1); i++) {
+            JSONObject jsonObject = payments.getJSONObject(i - 1);
             TableRow row = new TableRow(this);
             TextView number = new TextView(this);
-            number.setText(""+i);
+            number.setText("" + i);
             number.setGravity(Gravity.CENTER);
             number.setTextColor(Color.BLACK);
             row.addView(number);
@@ -132,10 +116,11 @@ public class HistoryActivity extends AppCompatActivity {
         Log.d("Lifecycle: ", "HistoryActivity onStart");
         super.onStart();
         tableLayout = new TableLayout(this);
-        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        TableLayout.LayoutParams lp = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         tableLayout.setLayoutParams(lp);
+        userJsonString = getIntent().getStringExtra("userobject");
         try {
-            JSONArray paymentsArray = getPaymentsList();
+            JSONArray paymentsArray = historyActivityViewModel.getPaymentsList(userJsonString);
             createTable(paymentsArray);
         } catch (IOException | JSONException e) {
             e.printStackTrace();
@@ -173,5 +158,4 @@ public class HistoryActivity extends AppCompatActivity {
         Log.d("Lifecycle: ", "HistoryActivity onDestroy");
         super.onDestroy();
     }
-
 }

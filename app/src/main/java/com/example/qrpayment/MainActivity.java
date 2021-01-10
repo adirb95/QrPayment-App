@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,14 +28,13 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Lifecycle: ", "MainActivity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
     }
 
     @Override
     protected void onStart() {
         Log.d("Lifecycle: ", "MainActivity onStart");
         super.onStart();
-        login_button = findViewById(R.id.login_btn);
+        login_button = findViewById(R.id.imageButton);
         editText_email_field = findViewById(R.id.email_field);
         editText_password_field = findViewById(R.id.password_field);
         editText_warnings_field = findViewById(R.id.textView_warnings);
@@ -61,17 +60,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case 1: {
                         try {
-                           String userobject =mainActivityViewModel.getUserByName(input_email, input_password);    //success
-                            if(!userobject.isEmpty()) {
-                              Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
-                              i.putExtra("name", userobject);
-                              startActivity(i);
-                              setContentView(R.layout.activity_logged_in);
-
-                          }
+                            String userobject = mainActivityViewModel.getUserByName(input_email, input_password);    //success
+                            if (!userobject.isEmpty()) {
+                                Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
+                                i.putExtra("name", userobject);
+                                startActivity(i);
+                                setContentView(R.layout.activity_logged_in);
+                            }
                             editText_warnings_field.setText("Email or password not valid!");
                             break;
-
                         } catch (JSONException | IOException e) {
                             e.printStackTrace();
                         }
@@ -83,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     @Override
@@ -110,6 +106,5 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Lifecycle: ", "MainActivity onDestroy");
         super.onDestroy();
     }
-
 }
 

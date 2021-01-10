@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 public class LoggedInActivity extends AppCompatActivity {
@@ -33,17 +32,16 @@ public class LoggedInActivity extends AppCompatActivity {
     protected void onStart() {
         Log.d("Lifecycle: ", "LoggedInActivity onStart");
         super.onStart();
-        left_corner_msg=findViewById(R.id.textView_left_corner_msg);
-        btn_QR_CODE_SCAN=findViewById(R.id.btn_QR_Scan);
+        left_corner_msg = findViewById(R.id.textView_left_corner_msg);
+        btn_QR_CODE_SCAN = findViewById(R.id.btn_QR_Scan);
         btn_history = findViewById(R.id.btn_history);
         String username = getIntent().getStringExtra("name");
         try {
-            object=  (User) JsonIO.JsonString_to_Object(username,User.class);
-
+            object = (User) JsonIO.JsonString_to_Object(username, User.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        left_corner_msg.setText("Welcome " +object.getFirstName()+" "+ object.getLastName());
+        left_corner_msg.setText("Welcome " + object.getFirstName() + " " + object.getLastName());
     }
 
     @Override
@@ -53,7 +51,7 @@ public class LoggedInActivity extends AppCompatActivity {
         btn_QR_CODE_SCAN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),CameraViewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CameraViewActivity.class);
                 startActivity(intent);
                 setContentView(R.layout.activity_camera_view);
             }
@@ -63,7 +61,7 @@ public class LoggedInActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), HistoryActivity.class);
                 try {
-                    intent.putExtra("userobject",JsonIO.Object_to_JsonString(object));
+                    intent.putExtra("userobject", JsonIO.Object_to_JsonString(object));
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }
