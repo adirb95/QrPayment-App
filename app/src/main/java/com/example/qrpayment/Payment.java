@@ -1,18 +1,21 @@
 package com.example.qrpayment;
 
-import java.util.Date;
-
 public class Payment {
 
     String companyName;
     double amount;
     String currency;
     String customer;
-    Date date;
+    String date;
     String status;
 
+    public String getCompanyName() {
+        return companyName;
+    }
 
-
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
     public double getAmount() {
         return amount;
@@ -38,11 +41,11 @@ public class Payment {
         this.customer = customer;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

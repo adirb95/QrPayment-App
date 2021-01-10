@@ -17,26 +17,40 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    MainActivityViewModel mainActivityViewModel = new MainActivityViewModel();
+    MainActivityViewModel mainActivityViewModel;
+    Button login_button;
+    EditText editText_email_field, editText_password_field;
+    TextView editText_warnings_field;
     private String input_email, input_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Lifecycle: ", "MainActivity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button login_button = findViewById(R.id.login_btn);
-        EditText editText_email_field = findViewById(R.id.email_field);
-        EditText editText_password_field = findViewById(R.id.password_field);
-        TextView editText_warnings_field = findViewById(R.id.textView_warnings);
-        MainActivityViewModel mainActivityViewModel = new MainActivityViewModel();
+
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("Lifecycle: ", "MainActivity onStart");
+        super.onStart();
+        login_button = findViewById(R.id.login_btn);
+        editText_email_field = findViewById(R.id.email_field);
+        editText_password_field = findViewById(R.id.password_field);
+        editText_warnings_field = findViewById(R.id.textView_warnings);
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d("Lifecycle: ", "MainActivity onResume");
+        super.onResume();
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mainActivityViewModel = new MainActivityViewModel();
                 input_email = editText_email_field.getText().toString();
                 input_password = editText_password_field.getText().toString();
-                /*mainActivityViewModel.validateInput(input_email,input_password)*/
-                /*String user = */
                 if (input_email.isEmpty()) {
                     Log.d("<<Error", "empty email");
                 }
@@ -47,14 +61,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                     case 1: {
                         try {
-                           String userobject =mainActivityViewModel.getUserByName(input_email, input_password);    //success
-                            if(!userobject.isEmpty()) {
-                              Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
-                              i.putExtra("name", userobject);
-                              startActivity(i);
-                              setContentView(R.layout.activity_logged_in);
+                            String userobject = mainActivityViewModel.getUserByName(input_email, input_password);    //success
+                            if (!userobject.isEmpty()) {
+                                Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
+                                i.putExtra("name", userobject);
+                                startActivity(i);
+                                setContentView(R.layout.activity_logged_in);
 
-                          }
+                            }
                             editText_warnings_field.setText("Email or password not valid!");
                             break;
 
@@ -71,12 +85,31 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     @Override
     protected void onPause() {
+        Log.d("Lifecycle: ", "MainActivity onPause");
         super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("Lifecycle: ", "MainActivity onStop");
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        Log.d("Lifecycle: ", "MainActivity onRestart");
+        setContentView(R.layout.activity_main);
+        super.onRestart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("Lifecycle: ", "MainActivity onDestroy");
+        super.onDestroy();
     }
 
 }
