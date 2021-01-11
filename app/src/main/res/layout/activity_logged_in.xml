@@ -7,67 +7,79 @@
     android:layout_height="match_parent"
     tools:context=".LoggedInActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.QRPayment.AppBarOverlay"
-        app:layout_constraintBottom_toTopOf="@+id/textView_left_corner_msg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_logged_in"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="127dp"
+        android:layout_height="59dp"
+        android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.149"
+        app:layout_constraintStart_toEndOf="@+id/btn_history"
+        app:layout_constraintTop_toBottomOf="@+id/btn_QR_Scan"
+        app:layout_constraintVertical_bias="0.629" />
 
     <TextView
         android:id="@+id/textView_left_corner_msg"
-        android:layout_width="378dp"
-        android:layout_height="135dp"
+        android:layout_width="380dp"
+        android:layout_height="68dp"
+        android:layout_marginTop="236dp"
         android:text=""
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.171" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_QR_Scan"
-        android:layout_width="195dp"
-        android:layout_height="183dp"
-        android:layout_marginBottom="312dp"
+        android:layout_width="213dp"
+        android:layout_height="232dp"
         android:text="SCAN QR CODE"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_left_corner_msg"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.205" />
 
     <Button
         android:id="@+id/btn_history"
-        android:layout_width="97dp"
-        android:layout_height="48dp"
+        android:layout_width="127dp"
+        android:layout_height="59dp"
         android:text="History"
-        app:layout_constraintBottom_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_QR_Scan"
+        app:layout_constraintVertical_bias="0.629" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="381dp"
+        android:layout_height="174dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.533"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/qrpaymentlogo" />
+
+    <EditText
+        android:id="@+id/editTextTime2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="2dp"
+        android:ems="10"
+        android:inputType="time"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/appBarLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" /><![CDATA[
 
     androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
@@ -78,4 +90,5 @@
     app:layout_anchorGravity="top|center"
     app:popupTheme="@style/Theme.QRPayment.PopupOverlay" />
 
+]]>
 </androidx.constraintlayout.widget.ConstraintLayout>
