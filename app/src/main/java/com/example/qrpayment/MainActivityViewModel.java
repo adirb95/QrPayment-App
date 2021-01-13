@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Protocol;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
@@ -13,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class MainActivityViewModel {
@@ -38,7 +40,8 @@ public class MainActivityViewModel {
     String getUserByName(String email, String password) throws JSONException, IOException {
         //String url = "http://10.0.2.2:8080/Login";
         //String url = "http://localhost:8080/Login";
-        String url = "http://192.168.1.223:8080/Login";
+           String url = "http://192.168.1.100:8080/Login";
+       /* String url = "https://qr-payment.azurewebsites.net/Login";*/
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("email", email);
@@ -49,6 +52,8 @@ public class MainActivityViewModel {
             Log.d("<<Error", "Json exception!");
         }
         OkHttpClient client = new OkHttpClient();
+        client.setProtocols(Arrays.asList(Protocol.HTTP_1_1));
+        /*OkHttpClient client = new OkHttpClient();*/
         RequestBody body = RequestBody.create(JSON, jsonObject.toString());
         Request request = new Request.Builder()
                 .url(url)
