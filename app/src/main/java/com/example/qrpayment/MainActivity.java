@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                                 Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
                                 i.putExtra("name", userobject);
                                 startActivity(i);
-                                setContentView(R.layout.activity_logged_in);
+                                break;
                             }
                             editText_warnings_field.setText("Email or password not valid!");
                             break;
