@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 
 public class LoggedInActivity extends AppCompatActivity {
 
@@ -21,8 +24,10 @@ public class LoggedInActivity extends AppCompatActivity {
     public Button btn_QR_CODE_SCAN;
     public Button btn_history;
     public Button btn_logout;
-    TextView left_corner_msg;
-
+    TextView textView_left_corner_msg;
+    TextView textViewTime;
+    Calendar calendar;
+    String TimeString;
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +40,10 @@ public class LoggedInActivity extends AppCompatActivity {
     protected void onStart() {
         Log.d("Lifecycle: ", "LoggedInActivity onStart");
         super.onStart();
-        left_corner_msg = findViewById(R.id.textView_left_corner_msg);
+        calendar= Calendar.getInstance();
+        TimeString=DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        textViewTime=findViewById(R.id.textViewTime);
+        textView_left_corner_msg = findViewById(R.id.textView_left_corner_msg);
         btn_QR_CODE_SCAN = findViewById(R.id.btn_QR_Scan);
         btn_history = findViewById(R.id.btn_history);
         btn_logout = findViewById(R.id.btn_logout);
@@ -45,7 +53,8 @@ public class LoggedInActivity extends AppCompatActivity {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        left_corner_msg.setText("Welcome " + object.getFirstName() + " " + object.getLastName());
+        textViewTime.setText(TimeString);
+        textView_left_corner_msg.setText("Welcome " + object.getFirstName() + " " + object.getLastName());
     }
 
     @Override
