@@ -17,7 +17,7 @@ public class HistoryActivityViewModel {
     private static final MediaType JSON =  MediaType.parse("application/json;charset=utf-8");
     String url;
     public JSONArray getPaymentsList(String userJsonObject) throws IOException, JSONException {
-        url = "http://192.168.1.100:8080/history";
+        url = "https://qr-payment.azurewebsites.net/history";
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSON, userJsonObject);
         Request request = new Request.Builder()
@@ -28,7 +28,6 @@ public class HistoryActivityViewModel {
         StrictMode.setThreadPolicy(policy);
         Response response = client.newCall(request).execute();
         String jsonList = response.body().string();
-        JSONArray jsonarray = new JSONArray(jsonList);
-        return jsonarray;
+        return new JSONArray(jsonList);
     }
 }

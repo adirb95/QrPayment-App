@@ -1,5 +1,8 @@
 package com.example.qrpayment;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -18,9 +21,13 @@ import java.util.Arrays;
 import java.util.regex.Pattern;
 
 public class MainActivityViewModel {
-
+    Context mContext;
     public static final MediaType JSON
             = MediaType.parse("application/json;charset=utf-8");
+
+    public void setContext(Context mContext) {
+        this.mContext = mContext;
+    }
 
     public int validateInput(String email, String password) {
 
@@ -40,8 +47,8 @@ public class MainActivityViewModel {
     String getUserByName(String email, String password) throws JSONException, IOException {
         //String url = "http://10.0.2.2:8080/Login";
         //String url = "http://localhost:8080/Login";
-           String url = "http://192.168.1.100:8080/Login";
-       /* String url = "https://qr-payment.azurewebsites.net/Login";*/
+        /* String url = "http://192.168.1.100:8080/Login";*/
+        String url = "https://qr-payment.azurewebsites.net/Login";
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("email", email);
@@ -63,6 +70,19 @@ public class MainActivityViewModel {
         StrictMode.setThreadPolicy(policy);
         Response response = client.newCall(request).execute();
         Log.d("<<Error", "post request initiated");
-        return response.body().string();
+        if (response.isSuccessful()){
+            return response.body().string();
+        }
+        return "No response from Server";
     }
+
+    public boolean isInternetConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //we are connected to a network
+        return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+
+    }
+
+
 }
