@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
@@ -29,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Lifecycle: ", "MainActivity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-         mainActivityViewModel = new MainActivityViewModel();
+        mainActivityViewModel = new MainActivityViewModel();
         mainActivityViewModel.setContext(MainActivity.this);
     }
 
@@ -52,34 +51,32 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 input_email = editText_email_field.getText().toString();
                 input_password = editText_password_field.getText().toString();
-                if (input_email.isEmpty()) {
-                    Log.d("<<Error", "empty email");
-                }
                 switch (mainActivityViewModel.validateInput(input_email, input_password)) {
                     case 0: {                                                                           //wrong email or password
-                        editText_warnings_field.setText("Wrong email / password. Please try again.");
+                        editText_warnings_field.setText("Please enter valid email and password.");
                         break;
                     }
                     case 1: {
                         if (mainActivityViewModel.isInternetConnection()) {
                             try {
                                 String userobject = mainActivityViewModel.getUserByName(input_email, input_password);
-                                if (!userobject.isEmpty() && !userobject.equals("No response from Server")){
+                                if (!userobject.isEmpty() && !userobject.equals("No response from Server")) {    //email and password does not match or no response from server
                                     //success
                                     Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
                                     i.putExtra("name", userobject);
                                     startActivity(i);
-                                    /* setContentView(R.layout.activity_logged_in);*/
                                     break;
                                 }
-                                if(!userobject.isEmpty()) editText_warnings_field.setText("Email or password not valid! ");
-                                editText_warnings_field.setText(userobject);
+                                if (userobject.isEmpty()) {
+                                    editText_warnings_field.setText("Wrong Email or Password.");  //user mail and password does not match
+                                }
+                                editText_warnings_field.setText("No response from Server");
                                 break;
                             } catch (JSONException | IOException e) {
                                 e.printStackTrace();
                             }
                         }
-                        editText_warnings_field.setText("No Ethernet connection please try agian");
+                        editText_warnings_field.setText("No internet connection. Please try again");  //no wifi or data turned on on phone
                         break;
                     }
                     default: {

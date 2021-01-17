@@ -36,7 +36,7 @@ public class MainActivityViewModel {
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                 "A-Z]{2,7}$";
         Pattern pat = Pattern.compile(emailRegex);
-        if (email.isEmpty()) { //email empty
+        if (email.isEmpty() || password.isEmpty()) { //email empty or password
             return 0;
         } else if (pat.matcher(email).matches()) { //email ok
             return 1;
@@ -70,7 +70,7 @@ public class MainActivityViewModel {
         StrictMode.setThreadPolicy(policy);
         Response response = client.newCall(request).execute();
         Log.d("<<Error", "post request initiated");
-        if (response.isSuccessful()){
+        if (response.isSuccessful()) {
             return response.body().string();
         }
         return "No response from Server";
