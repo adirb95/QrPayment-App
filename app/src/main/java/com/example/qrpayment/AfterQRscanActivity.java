@@ -3,6 +3,7 @@ package com.example.qrpayment;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -10,7 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class AfterQRscanActivity extends AppCompatActivity {
 
-    String JsonString;
+    String JsonString,URL;
     MerchantNewPayment newPayment;
     Button ApproveBtn;
 
@@ -30,6 +31,13 @@ public class AfterQRscanActivity extends AppCompatActivity {
             }
             textViewCompanysName.setText(newPayment.getMerchantName());
             textViewAmountToPay.setText(new Double(newPayment.getTransactionAmount()).toString());
+
+            ApproveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         }
     }
 }
