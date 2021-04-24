@@ -2,7 +2,8 @@
 
 Our very first android application!
 
-This is an android application used to scan a QR code which contains a transaction information and to perform a bank transfer from a customer to a merchant.
+This is an android application which serves a customer.
+The app is used to scan a QR code which contains a transaction information and to perform a bank transfer from a customer to a merchant.
 The app is developed with Java using Android Studio.
 It uses an API in order to connect to the database which is stored on Firebase.
 
