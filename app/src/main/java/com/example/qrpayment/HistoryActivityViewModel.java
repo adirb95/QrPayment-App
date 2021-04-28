@@ -14,8 +14,9 @@ import org.json.JSONException;
 import java.io.IOException;
 
 public class HistoryActivityViewModel {
-    private static final MediaType JSON =  MediaType.parse("application/json;charset=utf-8");
+    private static final MediaType JSON = MediaType.parse("application/json;charset=utf-8");
     String url;
+
     public JSONArray getPaymentsList(String userJsonObject) throws IOException, JSONException {
         url = "https://qr-payment.azurewebsites.net/history";
         OkHttpClient client = new OkHttpClient();

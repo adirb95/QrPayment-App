@@ -26,7 +26,7 @@ public class LoggedInActivity extends AppCompatActivity {
     TextView textView_left_corner_msg;
     TextView textViewTime;
     Calendar calendar;
-    String TimeString;
+    String TimeString, username;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -34,19 +34,12 @@ public class LoggedInActivity extends AppCompatActivity {
         Log.d("Lifecycle: ", "LoggedInActivity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_in);
-
     }
 
     @Override
     protected void onStart() {
         Log.d("Lifecycle: ", "LoggedInActivity onStart");
         super.onStart();
-        String username = getIntent().getStringExtra("name");
-        try {
-            object = (User) JsonIO.JsonString_to_Object(username, User.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
         calendar = Calendar.getInstance();
         TimeString = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
         textViewTime = findViewById(R.id.textViewTime);
@@ -54,6 +47,12 @@ public class LoggedInActivity extends AppCompatActivity {
         btn_QR_CODE_SCAN = findViewById(R.id.btn_QR_Scan);
         btn_history = findViewById(R.id.btn_history);
         btn_logout = findViewById(R.id.btn_logout);
+        username = getIntent().getStringExtra("name");
+        try {
+            object = (User) JsonIO.JsonString_to_Object(username, User.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         textViewTime.setText(TimeString);
         textView_left_corner_msg.setText("Welcome " + object.getFirstName() + " " + object.getLastName());
     }
@@ -66,8 +65,8 @@ public class LoggedInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CameraViewActivity.class);
+                intent.putExtra("name", username);
                 startActivity(intent);
-                setContentView(R.layout.activity_camera_view);
             }
         });
         btn_history.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +88,6 @@ public class LoggedInActivity extends AppCompatActivity {
                 getIntent().removeExtra("name");
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
-                setContentView(R.layout.activity_main);
             }
         });
     }
@@ -122,6 +120,5 @@ public class LoggedInActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         moveTaskToBack(false);
-
     }
 }

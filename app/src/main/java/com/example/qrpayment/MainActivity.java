@@ -14,7 +14,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 
-
 public class MainActivity extends AppCompatActivity {
 
     MainActivityViewModel mainActivityViewModel;
@@ -49,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input_email= editText_email_field.getText().toString().replaceAll(" ", "").toLowerCase();
+                input_email = editText_email_field.getText().toString().replaceAll(" ","").toLowerCase();
                 input_password = editText_password_field.getText().toString();
                 switch (mainActivityViewModel.validateInput(input_email, input_password)) {
                     case 0: {                                                                           // Wrong e-mail or password
@@ -61,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                             try {
                                 String userobject = mainActivityViewModel.getUserByName(input_email, input_password);
                                 if (!userobject.isEmpty() && !userobject.equals("No response from Server")) {    // E-mail and password do not match or no response from server
-                                    //success
+                                    // Success
                                     Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
                                     i.putExtra("name", userobject);
                                     startActivity(i);
@@ -73,10 +72,8 @@ public class MainActivity extends AppCompatActivity {
                                 }
                                 editText_warnings_field.setText("No response from Server");
                                 break;
-                            } catch (JSONException | IOException e) {
+                            } catch (IOException e) {
                                 e.printStackTrace();
-                                editText_warnings_field.setText("No response from Server");
-                                break;
                             }
                         }
                         editText_warnings_field.setText("No internet connection. Please try again");  // No Wi-Fi or mobile data turned off on phone

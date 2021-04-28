@@ -28,13 +28,15 @@ public class CameraViewActivity extends AppCompatActivity {
     CameraSource cameraSource;
     BarcodeDetector barcodeDetector;
     private static final int PERMISSION_REQUEST_CODE = 200;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Lifecycle: ", "CameraViewActivity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_view);
-        surfaceView = (SurfaceView) findViewById(R.id.Camera_preview);
+        username = getIntent().getStringExtra("name");
+        surfaceView = findViewById(R.id.Camera_preview);
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build();
         cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(1920, 1024).setAutoFocusEnabled(true).build();
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -75,6 +77,7 @@ public class CameraViewActivity extends AppCompatActivity {
                     barcodeDetector.release();
                     Intent intent = new Intent(getApplicationContext(), AfterQRscanActivity.class);
                     intent.putExtra("QRDetails", (qr_content.valueAt(0)).displayValue);
+                    intent.putExtra("name", username);
                     startActivity(intent);
                 }
             }

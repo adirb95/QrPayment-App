@@ -23,7 +23,6 @@ import java.io.IOException;
 
 public class HistoryActivity extends AppCompatActivity {
 
-
     TableLayout tableLayout;
     HistoryActivityViewModel historyActivityViewModel = new HistoryActivityViewModel();
     String userJsonString;
