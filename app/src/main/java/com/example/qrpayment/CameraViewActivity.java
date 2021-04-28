@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.os.Vibrator;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -30,11 +31,12 @@ public class CameraViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("Lifecycle: ", "CameraViewActivity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera_view);
         surfaceView = (SurfaceView) findViewById(R.id.Camera_preview);
         barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE).build();
-        cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(649, 415).build();
+        cameraSource = new CameraSource.Builder(this, barcodeDetector).setRequestedPreviewSize(1920, 1024).setAutoFocusEnabled(true).build();
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
             public void surfaceCreated(@NonNull SurfaceHolder holder) {
@@ -65,14 +67,15 @@ public class CameraViewActivity extends AppCompatActivity {
 
             @Override
             public void receiveDetections(@NonNull Detector.Detections<Barcode> detections) {
-                SparseArray<Barcode> qr_content = detections.getDetectedItems();
-                if (qr_content.size() != 0) {
+                final SparseArray<Barcode> qr_content = detections.getDetectedItems();
+                System.out.println("test");
+                if (qr_content.size() > 0) {
                     Vibrator vibrator = (Vibrator) getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
                     vibrator.vibrate(250);
+                    barcodeDetector.release();
                     Intent intent = new Intent(getApplicationContext(), AfterQRscanActivity.class);
-                    intent.putExtra("QRDetails", (qr_content.valueAt(0).displayValue));
+                    intent.putExtra("QRDetails", (qr_content.valueAt(0)).displayValue);
                     startActivity(intent);
-                    setContentView(R.layout.activity_after_qr_scan);
                 }
             }
         });
