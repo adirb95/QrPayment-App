@@ -13,7 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class AfterQRscanActivity extends AppCompatActivity {
 
-    String JsonString;
+    String JsonString, username;
     MerchantNewPayment newPayment;
     Button ApproveBtn, CancelBtn;
 
@@ -33,10 +33,11 @@ public class AfterQRscanActivity extends AppCompatActivity {
         TextView textViewCurrency = findViewById(R.id.textViewCurrency);
         ApproveBtn = findViewById(R.id.btn_Approve);
         CancelBtn = findViewById(R.id.btn_Cancel);
+        username = getIntent().getStringExtra("name");
         JsonString = getIntent().getStringExtra("QRDetails");
         if (!JsonString.isEmpty()) {
             try {
-                newPayment = (MerchantNewPayment) JsonIO.JsonString_to_Object(JsonString, MerchantNewPayment.class);
+                newPayment = JsonIO.JsonString_to_Object(JsonString, MerchantNewPayment.class);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -55,12 +56,13 @@ public class AfterQRscanActivity extends AppCompatActivity {
             public void onClick(View v) {
 
             }
-
         });
         CancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(getApplicationContext(), LoggedInActivity.class);
+                intent.putExtra("name", username);
+                startActivity(intent);
             }
         });
     }

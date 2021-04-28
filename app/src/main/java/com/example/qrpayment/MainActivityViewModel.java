@@ -30,7 +30,6 @@ public class MainActivityViewModel {
     }
 
     public int validateInput(String email, String password) {
-
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
@@ -44,10 +43,7 @@ public class MainActivityViewModel {
         return 2; //email have wrong characters
     }
 
-    String getUserByName(String email, String password) throws JSONException, IOException {
-        //String url = "http://10.0.2.2:8080/Login";
-        //String url = "http://localhost:8080/Login";
-        //String url = "http://192.168.1.223:8080/Login";
+    String getUserByName(String email, String password) throws IOException {
         String url = "https://qr-payment.azurewebsites.net/Login";
         JSONObject jsonObject = new JSONObject();
         try {
@@ -56,11 +52,9 @@ public class MainActivityViewModel {
 
         } catch (JSONException e) {
             e.printStackTrace();
-            Log.d("<<Error", "Json exception!");
         }
         OkHttpClient client = new OkHttpClient();
         client.setProtocols(Arrays.asList(Protocol.HTTP_1_1));
-        /*OkHttpClient client = new OkHttpClient();*/
         RequestBody body = RequestBody.create(JSON, jsonObject.toString());
         Request request = new Request.Builder()
                 .url(url)
@@ -69,7 +63,6 @@ public class MainActivityViewModel {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Response response = client.newCall(request).execute();
-        Log.d("<<Error", "post request initiated");
         if (response.isSuccessful()) {
             return response.body().string();
         }
@@ -78,7 +71,6 @@ public class MainActivityViewModel {
 
     public boolean isInternetConnection() {
         ConnectivityManager connectivityManager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-        //we are connected to a network
         return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
 
