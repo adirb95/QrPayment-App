@@ -34,6 +34,13 @@ public class LoggedInActivity extends AppCompatActivity {
         Log.d("Lifecycle: ", "LoggedInActivity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_in);
+
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("Lifecycle: ", "LoggedInActivity onStart");
+        super.onStart();
         String username = getIntent().getStringExtra("name");
         try {
             object = (User) JsonIO.JsonString_to_Object(username, User.class);
@@ -47,12 +54,6 @@ public class LoggedInActivity extends AppCompatActivity {
         btn_QR_CODE_SCAN = findViewById(R.id.btn_QR_Scan);
         btn_history = findViewById(R.id.btn_history);
         btn_logout = findViewById(R.id.btn_logout);
-    }
-
-    @Override
-    protected void onStart() {
-        Log.d("Lifecycle: ", "LoggedInActivity onStart");
-        super.onStart();
         textViewTime.setText(TimeString);
         textView_left_corner_msg.setText("Welcome " + object.getFirstName() + " " + object.getLastName());
     }
