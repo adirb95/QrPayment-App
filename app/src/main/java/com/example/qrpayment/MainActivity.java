@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 input_email = editText_email_field.getText().toString();
                 input_password = editText_password_field.getText().toString();
                 switch (mainActivityViewModel.validateInput(input_email, input_password)) {
-                    case 0: {                                                                           //wrong email or password
+                    case 0: {                                                                           // Wrong e-mail or password
                         editText_warnings_field.setText("Please enter valid email and password.");
                         break;
                     }
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         if (mainActivityViewModel.isInternetConnection()) {
                             try {
                                 String userobject = mainActivityViewModel.getUserByName(input_email, input_password);
-                                if (!userobject.isEmpty() && !userobject.equals("No response from Server")) {    //email and password does not match or no response from server
+                                if (!userobject.isEmpty() && !userobject.equals("No response from Server")) {    // E-mail and password do not match or no response from server
                                     //success
                                     Intent i = new Intent(getApplicationContext(), LoggedInActivity.class);
                                     i.putExtra("name", userobject);
@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 }
                                 if (userobject.isEmpty()) {
-                                    editText_warnings_field.setText("Wrong Email or Password.");  //user mail and password does not match
+                                    editText_warnings_field.setText("Wrong Email or Password.");  // User's e-mail and password do not match
+                                    break;
                                 }
                                 editText_warnings_field.setText("No response from Server");
                                 break;
@@ -78,17 +79,15 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-                        editText_warnings_field.setText("No internet connection. Please try again");  //no wifi or data turned on on phone
+                        editText_warnings_field.setText("No internet connection. Please try again");  // No Wi-Fi or mobile data turned off on phone
                         break;
                     }
                     default: {
-                        editText_warnings_field.setText("Please enter a valid email");                          //email have wrong parameter's/
+                        editText_warnings_field.setText("Please enter a valid email");  // E-mail have wrong parameters
                         break;
                     }
                 }
-
             }
-
         });
     }
 

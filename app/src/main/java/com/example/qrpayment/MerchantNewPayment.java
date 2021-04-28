@@ -1,26 +1,12 @@
 package com.example.qrpayment;
 
 public class MerchantNewPayment {
-    int transactionID;
     String merchantName;
-    double transactionAmount;
     String transactionCurrency;
     private int accountNumber;
     private int branchNumber;
     private int bankID;
-
-    @Override
-    public String toString() {
-        return "MerchantNewPayment{" +
-                "transactionID=" + transactionID +
-                ", merchantName='" + merchantName + '\'' +
-                ", transactionAmount=" + transactionAmount +
-                ", transactionCurrency='" + transactionCurrency + '\'' +
-                ", accountNumber=" + accountNumber +
-                ", branchNumber=" + branchNumber +
-                ", bankID=" + bankID +
-                '}';
-    }
+    double price;
 
     public String getMerchantName() {
         return merchantName;
@@ -28,14 +14,6 @@ public class MerchantNewPayment {
 
     public void setMerchantName(String merchantName) {
         this.merchantName = merchantName;
-    }
-
-    public double getTransactionAmount() {
-        return transactionAmount;
-    }
-
-    public void setTransactionAmount(double transactionAmount) {
-        this.transactionAmount = transactionAmount;
     }
 
     public String getTransactionCurrency() {
@@ -70,11 +48,11 @@ public class MerchantNewPayment {
         this.bankID = bankID;
     }
 
-    public int getTransactionID() {
-        return transactionID;
+    public double getPrice() {
+        return price;
     }
 
-    public void setTransactionID(int transactionID) {
-        this.transactionID = transactionID;
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

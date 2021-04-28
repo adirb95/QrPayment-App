@@ -56,7 +56,7 @@ public class HistoryActivity extends AppCompatActivity {
         tv2.setTextColor(Color.BLUE);
         header.addView(tv2);
         TextView tv3 = new TextView(this);
-        tv3.setText(" Company Name ");
+        tv3.setText(" Company ");
         tv3.setGravity(Gravity.CENTER);
         tv3.setTypeface(tv0.getTypeface(), Typeface.BOLD);
         tv3.setTextColor(Color.BLUE);
