@@ -30,7 +30,6 @@ public class MainActivityViewModel {
     }
 
     public int validateInput(String email, String password) {
-
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
@@ -47,7 +46,7 @@ public class MainActivityViewModel {
     String getUserByName(String email, String password) throws JSONException, IOException {
         //String url = "http://10.0.2.2:8080/Login";
         //String url = "http://localhost:8080/Login";
-        //String url = "http://192.168.1.223:8080/Login";
+//        String url = "http://192.168.1.223:8080/Login";
         String url = "https://qr-payment.azurewebsites.net/Login";
         JSONObject jsonObject = new JSONObject();
         try {

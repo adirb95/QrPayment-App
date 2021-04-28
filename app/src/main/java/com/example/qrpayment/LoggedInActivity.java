@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.format.Time;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,31 +27,32 @@ public class LoggedInActivity extends AppCompatActivity {
     TextView textViewTime;
     Calendar calendar;
     String TimeString;
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("Lifecycle: ", "LoggedInActivity onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logged_in);
-    }
-
-    @Override
-    protected void onStart() {
-        Log.d("Lifecycle: ", "LoggedInActivity onStart");
-        super.onStart();
-        calendar= Calendar.getInstance();
-        TimeString=DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-        textViewTime=findViewById(R.id.textViewTime);
-        textView_left_corner_msg = findViewById(R.id.textView_left_corner_msg);
-        btn_QR_CODE_SCAN = findViewById(R.id.btn_QR_Scan);
-        btn_history = findViewById(R.id.btn_history);
-        btn_logout = findViewById(R.id.btn_logout);
         String username = getIntent().getStringExtra("name");
         try {
             object = (User) JsonIO.JsonString_to_Object(username, User.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        calendar = Calendar.getInstance();
+        TimeString = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+        textViewTime = findViewById(R.id.textViewTime);
+        textView_left_corner_msg = findViewById(R.id.textView_left_corner_msg);
+        btn_QR_CODE_SCAN = findViewById(R.id.btn_QR_Scan);
+        btn_history = findViewById(R.id.btn_history);
+        btn_logout = findViewById(R.id.btn_logout);
+    }
+
+    @Override
+    protected void onStart() {
+        Log.d("Lifecycle: ", "LoggedInActivity onStart");
+        super.onStart();
         textViewTime.setText(TimeString);
         textView_left_corner_msg.setText("Welcome " + object.getFirstName() + " " + object.getLastName());
     }
@@ -85,10 +85,10 @@ public class LoggedInActivity extends AppCompatActivity {
         btn_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               getIntent().removeExtra("name");
-               Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-               startActivity(intent);
-               setContentView(R.layout.activity_main);
+                getIntent().removeExtra("name");
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                setContentView(R.layout.activity_main);
             }
         });
     }

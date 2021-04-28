@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                input_email = editText_email_field.getText().toString();
+                input_email= editText_email_field.getText().toString().replaceAll(" ", "").toLowerCase();
                 input_password = editText_password_field.getText().toString();
                 switch (mainActivityViewModel.validateInput(input_email, input_password)) {
                     case 0: {                                                                           // Wrong e-mail or password

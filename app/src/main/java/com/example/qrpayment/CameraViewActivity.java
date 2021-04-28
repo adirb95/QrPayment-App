@@ -42,7 +42,7 @@ public class CameraViewActivity extends AppCompatActivity {
             public void surfaceCreated(@NonNull SurfaceHolder holder) {
                 if (ActivityCompat.checkSelfPermission(CameraViewActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(CameraViewActivity.this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
-                    return;
+                return;
                 }
                 try {
                     cameraSource.start(holder);

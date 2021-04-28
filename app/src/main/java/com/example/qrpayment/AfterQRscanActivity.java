@@ -61,6 +61,8 @@ public class AfterQRscanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                setContentView(R.layout.activity_logged_in);
+
             }
         });
     }
