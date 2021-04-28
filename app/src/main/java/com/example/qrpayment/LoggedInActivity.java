@@ -38,7 +38,7 @@ public class LoggedInActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        Log.d("Lifecycle: ", "LoggedInActivity onStart");
+        Log.d("Lifecycle:  ", "LoggedInActivity onStart");
         super.onStart();
         calendar = Calendar.getInstance();
         TimeString = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
