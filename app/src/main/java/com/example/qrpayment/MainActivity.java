@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             } catch (JSONException | IOException e) {
                                 e.printStackTrace();
+                                editText_warnings_field.setText("No response from Server");
+                                break;
                             }
                         }
                         editText_warnings_field.setText("No internet connection. Please try again");  //no wifi or data turned on on phone

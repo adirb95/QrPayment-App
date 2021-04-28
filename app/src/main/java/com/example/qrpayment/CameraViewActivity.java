@@ -72,7 +72,6 @@ public class CameraViewActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), AfterQRscanActivity.class);
                     intent.putExtra("QRDetails", (qr_content.valueAt(0).displayValue));
                     startActivity(intent);
-                    setContentView(R.layout.activity_after_qr_scan);
                 }
             }
         });
